@@ -1,0 +1,6 @@
+the front end is working locally with the old packages version
+npm install
+npm run dev >> development server
+npm run build then npm run start for building and production version
+it is linked to the live backend server on hugging face
+plz check the local build if vercel was down 
