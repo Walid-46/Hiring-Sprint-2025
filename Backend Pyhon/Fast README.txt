@@ -1,0 +1,1 @@
+# for fast local testing of the model use the jupyter note book in the model in a notebook folder

@@ -1,0 +1,22 @@
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv
+.git
+.gitignore
+.dockerignore
+docker-compose.yml
+.DS_Store
+*.egg-info
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+temp_uploads/
+*.jpg
+*.png
+model in a notebook/
