@@ -13,8 +13,8 @@
     "next": "16.0.3",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "framer-motion": "^10.0.0",
-    "lucide-react": "^0.250.0"
+    "lucide-react": "^0.553.0",
+    "motion": "^12.23.24"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
