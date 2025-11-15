@@ -1,0 +1,14 @@
+the main function of the model is done but it can use some fine tuning and 
+more detailed report summary.
+
+
+since the yolo model is based on a CNN neural network it is good for cost estimation
+so a more powerful llm agent specialized in car damage severity to estimate the cost
+is the better solution.
+
+plan:
+1 create a vision agent that analyze car damages
+2 send the analyzed images by the yolo model to the agent
+3 the agent search and generate a summary based on the shown damage
+4 link to garages or car service centers that specialize in the car model
+
