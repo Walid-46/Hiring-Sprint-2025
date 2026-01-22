@@ -15,7 +15,7 @@ export default function Page() {
 
   const handleImageUpload = (
     e: React.ChangeEvent<HTMLInputElement>,
-    type: "pickup" | "return"
+    type: "pickup" | "return",
   ) => {
     const files = Array.from(e.target.files || []);
     const currentImages = type === "pickup" ? pickupImages : returnImages;
@@ -24,7 +24,7 @@ export default function Page() {
     // Check if images exceed 4 per type
     if (totalNewImages > 4) {
       alert(
-        `You can upload up to 4 ${type} images. You currently have ${currentImages.length}.`
+        `You can upload up to 4 ${type} images. You currently have ${currentImages.length}.`,
       );
       return;
     }
@@ -38,6 +38,28 @@ export default function Page() {
       setPickupImages(pickupImages.filter((_, idx) => idx !== index));
     } else {
       setReturnImages(returnImages.filter((_, idx) => idx !== index));
+    }
+  };
+
+  const loadTestImages = async (pickupImage: string, returnImage: string) => {
+    try {
+      const pickupRes = await fetch(pickupImage);
+      const pickupBlob = await pickupRes.blob();
+      const pickupFile = new File([pickupBlob], "pickup-test.jpg", {
+        type: "image/jpeg",
+      });
+
+      const returnRes = await fetch(returnImage);
+      const returnBlob = await returnRes.blob();
+      const returnFile = new File([returnBlob], "return-test.jpg", {
+        type: "image/jpeg",
+      });
+
+      setPickupImages([pickupFile]);
+      setReturnImages([returnFile]);
+      setError(null);
+    } catch (err) {
+      setError("Failed to load test images");
     }
   };
 
@@ -70,7 +92,7 @@ export default function Page() {
         {
           method: "POST",
           body: formData,
-        }
+        },
       );
 
       if (!response.ok) {
@@ -112,7 +134,71 @@ export default function Page() {
             Upload pick-up and return photos. The AI will detect damages, rate
             severity, and estimate repair costs.
           </p>
+          <p className="text-gray-600 mt-2">
+            one pickup and one return image is required!
+          </p>
         </div>
+
+        {/* Test Images Preview */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-linear-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl p-6"
+        >
+          <h2 className="text-lg font-semibold mb-4 text-gray-800">
+            📸 Test with Sample Images
+          </h2>
+          <p className="text-sm text-gray-600 mb-4">
+            Click on any pair of images below to quickly test the app:
+          </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {/* Black Car Test */}
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              onClick={() =>
+                loadTestImages("/blackNew.jpg", "/blackDamaged.jpg")
+              }
+              className="flex flex-col items-center gap-2 p-3 rounded-lg bg-white hover:shadow-md transition-shadow border border-blue-100"
+            >
+              <div className="flex gap-1 w-full">
+                <img
+                  src="/blackNew.jpg"
+                  alt="Black car pickup"
+                  className="w-1/2 h-16 object-cover rounded"
+                />
+                <img
+                  src="/blackDamaged.jpg"
+                  alt="Black car damaged"
+                  className="w-1/2 h-16 object-cover rounded"
+                />
+              </div>
+              <span className="text-xs font-medium text-gray-700">
+                Black Car
+              </span>
+            </motion.button>
+
+            {/* Red Car Test */}
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              onClick={() => loadTestImages("/redNew.jpg", "/redDamaged.jpg")}
+              className="flex flex-col items-center gap-2 p-3 rounded-lg bg-white hover:shadow-md transition-shadow border border-blue-100"
+            >
+              <div className="flex gap-1 w-full">
+                <img
+                  src="/redNew.jpg"
+                  alt="Red car pickup"
+                  className="w-1/2 h-16 object-cover rounded"
+                />
+                <img
+                  src="/redDamaged.jpg"
+                  alt="Red car damaged"
+                  className="w-1/2 h-16 object-cover rounded"
+                />
+              </div>
+              <span className="text-xs font-medium text-gray-700">Red Car</span>
+            </motion.button>
+          </div>
+        </motion.div>
 
         {/* Panels */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
