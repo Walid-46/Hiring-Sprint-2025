@@ -4,3 +4,7 @@ npm run dev >> development server
 npm run build then npm run start for building and production version
 it is linked to the live backend server on hugging face
 plz check the local build if vercel was down 
+
+#### this is the deployment link the first one was corrupt and never worked
+#### redploying to new project was the fix 
+#### https://hiring-sprint-2025-5pyj.vercel.app/  
